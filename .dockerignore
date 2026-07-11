@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+test
+coverage
+.git
+.gitignore
+Jenkinsfile
+README.md
+dependency-check-report*
+trivy-report*
+*.md
