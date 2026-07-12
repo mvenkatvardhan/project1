@@ -7,9 +7,9 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE       = "yourdockerhubuser/nodejs-cicd-demo"
+        DOCKER_IMAGE       = "venkatvardhan/nodejs-cicd-demo"
         IMAGE_TAG          = "${env.BUILD_NUMBER}"
-        SONARQUBE_ENV      = "MySonarQubeServer"   // Name configured in Manage Jenkins > System
+        SONARQUBE_ENV      = "MySonarQubeServer "   // Name configured in Manage Jenkins > System
         DOCKERHUB_CRED_ID  = "dockerhub-creds"     // Jenkins credential ID (username/password)
     }
 
@@ -65,6 +65,7 @@ pipeline {
 
         stage('OWASP Dependency Check') {
             steps {
+                sh 'mkdir -p dependency-check-report'
                 dependencyCheck additionalArguments: '''
                     --scan .
                     --format HTML
