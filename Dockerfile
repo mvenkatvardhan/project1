@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
-COPY package*.json ./
+COPY package.json ./
 
 ENV NODE_ENV=production
 ENV PORT=3000
