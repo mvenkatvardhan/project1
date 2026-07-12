@@ -1,6 +1,6 @@
 # ---------- Stage 1: build/install dependencies ----------
 FROM node:20-alpine AS builder
-
+RUN apk update && apk upgrade --no-cache
 WORKDIR /app
 
 COPY package*.json ./
@@ -10,7 +10,7 @@ COPY src ./src
 
 # ---------- Stage 2: minimal runtime image ----------
 FROM node:20-alpine AS runtime
-
+RUN apk update && apk upgrade --no-cache
 # Run as non-root user (reduces attack surface, flagged by security scanners if skipped)
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
-COPY package*.json ./
+COPY package.json ./
 
 ENV NODE_ENV=production
 ENV PORT=3000
